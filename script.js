@@ -44,6 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const labelHeartsCount = document.getElementById("label-hearts-count");
   const rangeHeartsSpeed = document.getElementById("range-hearts-speed");
   const labelHeartsSpeed = document.getElementById("label-hearts-speed");
+  const rangeMusicVolume = document.getElementById("range-music-volume");
+  const labelMusicVolume = document.getElementById("label-music-volume");
   const colorDots = document.querySelectorAll(".color-dot");
   const selectTheme = document.getElementById("select-theme");
   const toggleClickHearts = document.getElementById("toggle-click-hearts");
@@ -102,6 +104,12 @@ document.addEventListener("DOMContentLoaded", () => {
      INITIALIZATION & RENDER
      ========================================================================== */
   function init() {
+    // Set initial volume from localStorage or default to 80%
+    const savedVolume = localStorage.getItem("love_music_volume") || "80";
+    rangeMusicVolume.value = savedVolume;
+    labelMusicVolume.textContent = savedVolume + "%";
+    bgMusic.volume = parseInt(savedVolume) / 100;
+
     // Parse URL parameters for shared gifts
     parseUrlParameters();
 
@@ -443,6 +451,14 @@ document.addEventListener("DOMContentLoaded", () => {
     generateShareLink();
   });
 
+  rangeMusicVolume.addEventListener("input", () => {
+    const val = rangeMusicVolume.value;
+    labelMusicVolume.textContent = val + "%";
+    bgMusic.volume = parseInt(val) / 100;
+    localStorage.setItem("love_music_volume", val);
+    generateShareLink();
+  });
+
   // Theme changer
   function applyThemeClass(themeName) {
     birthdayCard.className = "birthday-card " + themeName;
@@ -648,7 +664,8 @@ document.addEventListener("DOMContentLoaded", () => {
       f: selectCoupleFrame.value,
       c: activeColor,
       dc: rangeHeartsCount.value,
-      sp: rangeHeartsSpeed.value
+      sp: rangeHeartsSpeed.value,
+      vol: rangeMusicVolume.value
     };
 
     // Note: We don't embed base64 images in URL because it exceeds 2KB browser URL limits.
@@ -694,6 +711,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (data.c) activeColor = data.c;
       if (data.dc) rangeHeartsCount.value = data.dc;
       if (data.sp) rangeHeartsSpeed.value = data.sp;
+      if (data.vol !== undefined) {
+        rangeMusicVolume.value = data.vol;
+        labelMusicVolume.textContent = data.vol + "%";
+        bgMusic.volume = parseInt(data.vol) / 100;
+      }
       
       // Set active indicator on colors
       colorDots.forEach(dot => {
@@ -895,6 +917,7 @@ document.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
 
       const bgMusic = document.getElementById("bg-music");
+      bgMusic.volume = ${parseInt(rangeMusicVolume.value) / 100};
       const btnCardMusicToggle = document.getElementById("btn-card-music-toggle");
       const btnOpenGift = document.getElementById("btn-open-gift");
       const openingOverlay = document.getElementById("opening-overlay");
