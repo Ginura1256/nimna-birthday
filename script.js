@@ -64,13 +64,25 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ==========================================================================
      GLOBAL APP STATE
      ========================================================================== */
-  const DEFAULT_PHOTO_COUNT = 12;
+  const DEFAULT_PHOTO_COUNT = 11;
   let activeColor = "#ff4b5c"; // Default heart color
 
   // Default asset paths
   const defaultAssets = {
     coupleImg: "assets/couple_cutout.jpg",
-    filmstrip: Array.from({ length: DEFAULT_PHOTO_COUNT }, (_, i) => `assets/film_${i + 1}.jpg`)
+    filmstrip: [
+      "assets/WhatsApp Image 2026-05-07 at 12.09.28 PM.jpeg",
+      "assets/WhatsApp Image 2026-05-07 at 12.12.14 PM.jpeg",
+      "assets/WhatsApp Image 2026-05-07 at 12.12.15 PM.jpeg",
+      "assets/WhatsApp Image 2026-05-07 at 12.24.50 PM.jpeg",
+      "assets/WhatsApp Image 2026-05-25 at 10.26.55 PM (1).jpeg",
+      "assets/WhatsApp Image 2026-05-28 at 2.40.02 AM.jpeg",
+      "assets/WhatsApp Image 2026-05-28 at 4.00.30 PM.jpeg",
+      "assets/WhatsApp Image 2026-05-28 at 4.12.13 PM (2).jpeg",
+      "assets/WhatsApp Image 2026-06-07 at 1.41.28 PM (2).jpeg",
+      "assets/memory1.jpg",
+      "assets/memory7.jpg"
+    ]
   };
 
   // State of custom photos (either base64 strings or URLs)
