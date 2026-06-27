@@ -328,6 +328,22 @@
     <span id="toast-message">Copied successfully!</span>
   </div>
 
+  <!-- Admin Login Overlay -->
+  <div id="admin-login-overlay" class="admin-overlay-hidden">
+    <div class="admin-login-card">
+      <div class="admin-avatar">
+        <i data-lucide="lock"></i>
+      </div>
+      <h2>Admin Control Panel</h2>
+      <p>Enter password to access customization tools</p>
+      <div class="admin-input-group">
+        <input type="password" id="admin-password-input" placeholder="Password">
+      </div>
+      <button id="btn-admin-login" class="btn-primary">Unlock Editor</button>
+      <p id="admin-login-error" class="error-msg"></p>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

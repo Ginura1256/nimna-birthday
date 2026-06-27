@@ -59,6 +59,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const toast = document.getElementById("toast");
   const toastMessage = document.getElementById("toast-message");
 
+  // Admin Panel Elements
+  const ADMIN_PASSWORD = "love";
+  const adminLoginOverlay = document.getElementById("admin-login-overlay");
+  const adminPasswordInput = document.getElementById("admin-password-input");
+  const btnAdminLogin = document.getElementById("btn-admin-login");
+  const adminLoginError = document.getElementById("admin-login-error");
+
   // Tabs Navigation
   const tabButtons = document.querySelectorAll(".tab-btn");
   const tabContents = document.querySelectorAll(".tab-content");
@@ -130,6 +137,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Setup Canvas Heart System
     initHeartSystem();
+
+    // Handle admin control panel access
+    handleAdminSecurity();
 
     // Generate Share URL
     generateShareLink();
@@ -699,12 +709,6 @@ document.addEventListener("DOMContentLoaded", () => {
       
       const data = JSON.parse(jsonStr);
       
-      // Add preview-mode class to hide configuration controls
-      const appContainer = document.querySelector(".app-container");
-      if (appContainer) {
-        appContainer.classList.add("preview-mode");
-      }
-      
       // Override DOM states with shared data
       if (data.h) inputHappy.value = data.h;
       if (data.b) inputBirthday.value = data.b;
@@ -757,6 +761,67 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("Press Ctrl+C to copy!");
       });
   });
+
+  /* ==========================================================================
+     ADMIN LOGIN SYSTEM
+     ========================================================================== */
+  function handleAdminSecurity() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const isAdminMode = urlParams.has("admin");
+    const isSessionUnlocked = sessionStorage.getItem("love_admin_logged_in") === "true";
+    const appContainer = document.querySelector(".app-container");
+
+    if (isAdminMode || isSessionUnlocked) {
+      if (!isSessionUnlocked) {
+        // Show Admin Login Overlay
+        adminLoginOverlay.classList.remove("admin-overlay-hidden");
+        adminLoginOverlay.classList.add("admin-overlay-show");
+        
+        // Ensure preview-mode is active until unlocked
+        if (appContainer) {
+          appContainer.classList.add("preview-mode");
+        }
+      } else {
+        // Logged in session active - show customizer
+        if (appContainer) {
+          appContainer.classList.remove("preview-mode");
+        }
+      }
+    } else {
+      // Default view is preview-mode (hidden customizer)
+      if (appContainer) {
+        appContainer.classList.add("preview-mode");
+      }
+    }
+  }
+
+  // Admin Login Event Handlers
+  btnAdminLogin.addEventListener("click", performAdminLogin);
+  adminPasswordInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      performAdminLogin();
+    }
+  });
+
+  function performAdminLogin() {
+    const enteredPassword = adminPasswordInput.value;
+    if (enteredPassword === ADMIN_PASSWORD) {
+      sessionStorage.setItem("love_admin_logged_in", "true");
+      adminLoginOverlay.classList.remove("admin-overlay-show");
+      adminLoginOverlay.classList.add("admin-overlay-hidden");
+      
+      const appContainer = document.querySelector(".app-container");
+      if (appContainer) {
+        appContainer.classList.remove("preview-mode");
+      }
+      
+      showToast("Access granted! Editor unlocked. 🔓");
+    } else {
+      adminLoginError.textContent = "Incorrect password! Try again.";
+      adminPasswordInput.value = "";
+      adminPasswordInput.focus();
+    }
+  }
 
   /* ==========================================================================
      STANDALONE DOWNLOAD COMPILER
