@@ -1,0 +1,1398 @@
+/* ==========================================================================
+   DESIGN SYSTEM & GLOBAL STYLES
+   ========================================================================== */
+
+:root {
+  --color-primary: #ff4b5c;
+  --color-primary-glow: rgba(255, 75, 92, 0.4);
+  --color-gold: #e5a93b;
+  --color-gold-glow: rgba(229, 169, 59, 0.3);
+  --color-bg-dark: #0a0a0c;
+  --color-card-dark: #121216;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a0a0ab;
+  --font-sans: 'Montserrat', sans-serif;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Ambient glow orbs in background */
+.site-bg-effects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+  mix-blend-mode: screen;
+  animation: orbFloat 20s infinite alternate;
+}
+
+.orb-1 {
+  top: -10%;
+  left: 10%;
+  width: 400px;
+  height: 400px;
+  background-color: var(--color-primary);
+}
+
+.orb-2 {
+  bottom: -10%;
+  right: 10%;
+  width: 500px;
+  height: 500px;
+  background-color: var(--color-gold);
+  animation-delay: -5s;
+}
+
+.orb-3 {
+  top: 40%;
+  left: 50%;
+  width: 350px;
+  height: 350px;
+  background-color: #8b5cf6;
+  animation-delay: -10s;
+}
+
+@keyframes orbFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(50px, 30px) scale(1.1); }
+}
+
+/* ==========================================================================
+   ROMANTIC OPENING OVERLAY
+   ========================================================================== */
+
+#opening-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(8, 8, 10, 0.95);
+  backdrop-filter: blur(15px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#opening-overlay.overlay-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.overlay-card {
+  text-align: center;
+  padding: 40px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  max-width: 450px;
+  width: 90%;
+  transform: scale(0.9);
+  animation: cardFadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes cardFadeIn {
+  to { transform: scale(1); }
+}
+
+.overlay-heart {
+  font-size: 80px;
+  color: var(--color-primary);
+  margin-bottom: 24px;
+  display: inline-block;
+}
+
+.icon-heart-pulse {
+  width: 72px;
+  height: 72px;
+  stroke: var(--color-primary);
+  fill: var(--color-primary);
+  filter: drop-shadow(0 0 15px var(--color-primary-glow));
+  animation: heartPulse 1.2s infinite;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.overlay-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 26px;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.overlay-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+/* Button stylings */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #ff2a4b 100%);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: var(--transition-smooth);
+  box-shadow: 0 10px 20px rgba(255, 75, 92, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 25px rgba(255, 75, 92, 0.5);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 30%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+  animation: glareSweep 3s infinite;
+}
+
+@keyframes glareSweep {
+  0% { left: -60%; }
+  30% { left: 140%; }
+  100% { left: 140%; }
+}
+
+/* ==========================================================================
+   APP HEADER & CONTAINER
+   ========================================================================== */
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 40px 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 30px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+}
+
+.logo-icon {
+  stroke: var(--color-primary);
+  fill: rgba(255, 75, 92, 0.2);
+}
+
+.header-tag {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  border: 1px solid rgba(229, 169, 59, 0.3);
+  padding: 4px 12px;
+  border-radius: 50px;
+  background: rgba(229, 169, 59, 0.05);
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 450px 1fr;
+  gap: 40px;
+  flex: 1;
+}
+
+/* ==========================================================================
+   PHONE MOCKUP & PREVIEW
+   ========================================================================== */
+
+.preview-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 10px;
+  border-radius: 50px;
+  color: #fff;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px #22c55e;
+  animation: pulseGreen 1.5s infinite;
+}
+
+@keyframes pulseGreen {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.5; }
+}
+
+.phone-mockup-wrapper {
+  position: relative;
+  width: 378px; /* Slightly wider than card (360) for phone frame */
+  height: 658px; /* Slightly taller than card (640) */
+  background: #000;
+  border: 9px solid #1f1f23;
+  border-radius: 40px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.8), 
+              0 0 0 1px rgba(255,255,255,0.1),
+              0 0 40px rgba(255, 75, 92, 0.1);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.phone-frame {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 18px;
+  background: #1f1f23;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  z-index: 10;
+}
+
+/* ==========================================================================
+   THE BIRTHDAY CARD (9:16 PREVIEW)
+   ========================================================================== */
+
+.birthday-card {
+  position: relative;
+  width: 360px;
+  height: 640px;
+  background-color: #000;
+  overflow: hidden;
+  display: flex;
+  user-select: none;
+  transition: background 0.8s ease;
+}
+
+/* Floating Hearts inside the Card */
+#card-hearts-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 8;
+}
+
+/* Theme variations */
+.birthday-card.theme-dark {
+  background-color: #000000;
+}
+
+.birthday-card.theme-sunset {
+  background: linear-gradient(180deg, #1b0c1b 0%, #3a0d24 40%, #5d1c24 70%, #170912 100%);
+}
+
+.birthday-card.theme-starry {
+  background: linear-gradient(180deg, #050b14 0%, #0d1e36 40%, #151833 70%, #060914 100%);
+}
+
+.birthday-card.theme-rose {
+  background: linear-gradient(180deg, #2b1d22 0%, #543743 45%, #472b36 75%, #1f1418 100%);
+}
+
+.birthday-card.theme-neon {
+  background: linear-gradient(180deg, #0d040a 0%, #29081f 40%, #14030e 70%, #050004 100%);
+}
+
+/* Card Music Control Button */
+.card-music-btn {
+  position: absolute;
+  top: 25px;
+  right: 15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 15;
+  transition: var(--transition-smooth);
+}
+
+.card-music-btn i {
+  width: 14px;
+  height: 14px;
+}
+
+.card-music-btn:hover {
+  transform: scale(1.1);
+  background: rgba(255, 75, 92, 0.8);
+  border-color: transparent;
+}
+
+.card-music-btn.playing {
+  animation: spinVinyl 5s linear infinite;
+  background: rgba(255, 75, 92, 0.9);
+  border-color: transparent;
+}
+
+@keyframes spinVinyl {
+  to { transform: rotate(360deg); }
+}
+
+.music-waves {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2px;
+  height: 10px;
+  opacity: 0;
+  transition: var(--transition-smooth);
+}
+
+.card-music-btn.playing .music-waves {
+  opacity: 1;
+}
+
+.music-waves span {
+  display: block;
+  width: 2px;
+  height: 100%;
+  background-color: var(--color-primary);
+  animation: wavePulse 1s ease infinite alternate;
+}
+
+.music-waves span:nth-child(2) { animation-delay: -0.4s; }
+.music-waves span:nth-child(3) { animation-delay: -0.7s; }
+
+@keyframes wavePulse {
+  0% { transform: scaleY(0.3); }
+  100% { transform: scaleY(1); }
+}
+
+/* ==========================================================================
+   LEFT COLUMN: FILMSTRIP SYSTEM
+   ========================================================================== */
+
+.filmstrip-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 46%;
+  height: 100%;
+  background-color: #080808;
+  overflow: hidden;
+  z-index: 2;
+  border-right: 1px solid #151515;
+}
+
+.filmstrip-track {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* Fallback scroll, overwritten dynamically */
+  animation: filmScroll 25s linear infinite;
+}
+
+/* Double length track for infinite scroll. Handled in JS, loop matches frame count */
+@keyframes filmScroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+/* Individual Filmstrip Frame Design */
+.film-frame {
+  position: relative;
+  width: 100%;
+  height: 240px; /* Precise height */
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 22px 14px; /* Gutters for film look */
+  border-top: 2px solid var(--color-gold);
+}
+
+/* Left & Right borders with sprocket holes */
+.film-frame::before,
+.film-frame::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--color-gold) 0px,
+    var(--color-gold) 8px,
+    transparent 8px,
+    transparent 18px
+  );
+  z-index: 3;
+}
+
+.film-frame::before {
+  left: 4px;
+}
+
+.film-frame::after {
+  right: 4px;
+}
+
+/* Text overlays on the film margins */
+.film-text-top,
+.film-text-bottom {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-family: monospace;
+  font-size: 7px;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+}
+
+.film-text-top {
+  top: 5px;
+}
+
+.film-text-bottom {
+  bottom: 5px;
+}
+
+/* Photo wrapper and image */
+.film-image-wrapper {
+  width: calc(100% - 16px);
+  height: 100%;
+  background: #111;
+  overflow: hidden;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.film-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.film-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    rgba(0,0,0,0.4) 0%, 
+    transparent 15%, 
+    transparent 85%, 
+    rgba(0,0,0,0.4) 100%),
+    linear-gradient(to right,
+    rgba(0,0,0,0.2) 0%,
+    transparent 15%,
+    transparent 85%,
+    rgba(0,0,0,0.2) 100%);
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: ROMANTIC TYPOGRAPHY & CUTOUT
+   ========================================================================== */
+
+.card-right-side {
+  position: absolute;
+  left: 46%;
+  width: 54%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 12px;
+  z-index: 5;
+}
+
+/* Floating Hearts Image Graphic */
+.hearts-header {
+  margin-top: 40px;
+  margin-bottom: 8px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatMinor 4s ease-in-out infinite alternate;
+}
+
+@keyframes floatMinor {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-5px); }
+}
+
+.hearts-img {
+  height: 100%;
+  width: auto;
+  mix-blend-mode: screen;
+}
+
+/* Headings styles */
+.card-headings {
+  color: #fff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+}
+
+.text-happy {
+  font-family: 'Dancing Script', cursive;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: -4px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.text-birthday {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  margin-bottom: 2px;
+}
+
+.text-mylove {
+  font-family: 'Dancing Script', cursive;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-gold);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* Message block */
+.card-message {
+  font-family: 'Caveat', cursive;
+  font-size: 15px;
+  line-height: 1.35;
+  color: #f1f1f1;
+  margin-top: 14px;
+  padding: 0 8px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+  max-height: 130px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.card-message::-webkit-scrollbar {
+  display: none;
+}
+
+/* Couple Cutout Container Styles */
+.couple-cutout-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 90%;
+  height: auto;
+  z-index: 9;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.couple-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: var(--transition-smooth);
+}
+
+/* Original crop style uses pre-applied outline. We do nothing additional */
+.frame-original .couple-img {
+  filter: none;
+}
+
+/* Soft white glow style */
+.frame-glow .couple-img {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+}
+
+/* Circle shape mask with dashed border */
+.frame-circle {
+  bottom: 15px;
+  right: 15px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px dashed #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  background: #222;
+}
+
+.frame-circle .couple-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Heart shape mask with dashed border */
+.frame-heart {
+  bottom: 15px;
+  right: 15px;
+  width: 130px;
+  height: 130px;
+  clip-path: path("M12,20.35L10.55,19.03C5.4,14.36 2,11.27 2,7.5C2,4.41 4.41,2 7.5,2C9.24,2 10.91,2.81 12,4.08C13.09,2.81 14.76,2 16.5,2C19.59,2 22,4.41 22,7.5C22,11.27 18.6,14.36 13.45,19.04L12,20.35Z");
+  /* Standard clip-path path is difficult to stroke, so we style container outline */
+  outline: 3px dashed #fff;
+  outline-offset: -3px;
+  background: #222;
+}
+
+.frame-heart .couple-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Polaroid frame style */
+.frame-polaroid {
+  bottom: 25px;
+  right: 12px;
+  width: 130px;
+  height: auto;
+  background: #fff;
+  padding: 6px 6px 20px 6px;
+  border-radius: 2px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  transform: rotate(3deg);
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.frame-polaroid .couple-img {
+  width: 100%;
+  height: 105px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+.frame-polaroid::after {
+  content: 'Us ❤️';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 12px;
+  color: #333;
+  font-weight: bold;
+}
+
+
+/* ==========================================================================
+   RIGHT PANEL: CUSTOMIZER DASHBOARD
+   ========================================================================== */
+
+.control-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-card {
+  background: rgba(18, 18, 22, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 658px; /* Match phone frame height */
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Tabs Navigation */
+.dashboard-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 18px 10px;
+  color: var(--color-text-secondary);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.tab-btn i {
+  width: 18px;
+  height: 18px;
+}
+
+.tab-btn:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.02);
+}
+
+.tab-btn.active {
+  color: var(--color-primary);
+  background: rgba(255, 75, 92, 0.03);
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary);
+  box-shadow: 0 -2px 10px var(--color-primary);
+}
+
+/* Tab contents area */
+.tab-content-container {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.tab-content {
+  display: none;
+  height: 100%;
+}
+
+.tab-content.active {
+  display: block;
+  animation: tabFadeIn 0.3s ease;
+}
+
+@keyframes tabFadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  border-left: 3px solid var(--color-primary);
+  padding-left: 10px;
+}
+
+/* ==========================================================================
+   INPUTS & CONTROLS UI
+   ========================================================================== */
+
+.input-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input-group input[type="text"],
+.input-group textarea,
+.input-group select {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  outline: none;
+  transition: var(--transition-smooth);
+  width: 100%;
+}
+
+.input-group input[type="text"]:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+  border-color: var(--color-primary);
+  background: rgba(255, 75, 92, 0.02);
+  box-shadow: 0 0 0 3px var(--color-primary-glow);
+}
+
+.settings-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* Photo Tab specific styles */
+.photo-section {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.photo-section h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.section-desc {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.file-upload-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border: 1px solid var(--color-border);
+  padding: 10px 18px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.btn-secondary input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.btn-sm {
+  padding: 8px 14px;
+  font-size: 12px;
+}
+
+.file-name-label {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+/* Filmstrip Editor Grid */
+.filmstrip-grid-editor {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.film-grid-item {
+  position: relative;
+  aspect-ratio: 1;
+  background: #222;
+  border: 1px dashed var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.film-grid-item:hover {
+  border-color: var(--color-primary);
+  background: #2a2a30;
+}
+
+.film-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.film-grid-item-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-text-secondary);
+  font-size: 10px;
+  gap: 4px;
+}
+
+.film-grid-item-upload i {
+  width: 14px;
+  height: 14px;
+}
+
+.film-grid-item .btn-remove-grid-photo {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.7);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: 5;
+}
+
+.film-grid-item:hover .btn-remove-grid-photo {
+  opacity: 1;
+}
+
+.film-grid-item .btn-remove-grid-photo:hover {
+  background: var(--color-primary);
+}
+
+.film-grid-item input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Range controls */
+.control-group {
+  margin-bottom: 22px;
+}
+
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.control-header label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.control-header span {
+  font-size: 12px;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Custom styled inputs */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 0 10px var(--color-primary-glow);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Color dot selectors */
+.color-palette-picker {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.color-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.color-dot.active {
+  border-color: #fff;
+  transform: scale(1.15);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+}
+
+/* Toggle Switch Control */
+.toggle-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #fff;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: .4s;
+  border-radius: 34px;
+  border: 1px solid var(--color-border);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--color-primary);
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* Share elements */
+.share-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.share-instructions {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  background: rgba(229, 169, 59, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(229, 169, 59, 0.2);
+}
+
+.share-instructions i {
+  color: var(--color-gold);
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.share-url-container {
+  display: flex;
+  gap: 8px;
+}
+
+#share-url-input {
+  flex: 1;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--color-border);
+  padding: 10px 12px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  border-radius: 8px;
+  outline: none;
+  font-family: monospace;
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION & FOOTER
+   ========================================================================== */
+
+#toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: rgba(18, 18, 22, 0.9);
+  border: 1px solid var(--color-primary);
+  padding: 12px 24px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 25px rgba(255, 75, 92, 0.2);
+  z-index: 10000;
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+}
+
+#toast.toast-show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.toast-icon {
+  stroke: var(--color-primary);
+  width: 18px;
+  height: 18px;
+}
+
+#toast-message {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.app-footer-bar {
+  text-align: center;
+  padding: 30px 0 10px 0;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  border-top: 1px solid var(--color-border);
+  margin-top: 40px;
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT (MEDIA QUERIES)
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .grid-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .preview-section {
+    order: 1;
+  }
+
+  .control-section {
+    order: 2;
+  }
+
+  .dashboard-card {
+    height: auto;
+    max-height: none;
+  }
+
+  .tab-content-container {
+    max-height: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 12px;
+  }
+
+  .phone-mockup-wrapper {
+    width: 320px;
+    height: 560px;
+  }
+
+  .birthday-card {
+    width: 302px;
+    height: 542px;
+  }
+
+  /* Scale sizes inside cards for smaller mobile screen */
+  .film-frame {
+    height: 200px;
+  }
+  
+  .text-birthday {
+    font-size: 32px;
+  }
+  
+  .text-happy {
+    font-size: 22px;
+  }
+  
+  .text-mylove {
+    font-size: 18px;
+  }
+  
+  .card-message {
+    font-size: 13px;
+    margin-top: 8px;
+  }
+}

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, My Love | Interactive Love Letter</title>
+  <!-- Google Fonts for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@1,700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <!-- Lucide Icons for premium UI look -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Styling -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Music Element -->
+  <audio id="bg-music" src="assets/audio.mp3" loop></audio>
+
+  <!-- Interactive Particles Background -->
+  <div class="site-bg-effects">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <!-- Romantic Opening Overlay (Required for Autoplay policy) -->
+  <div id="opening-overlay" class="overlay-active">
+    <div class="overlay-card">
+      <div class="overlay-heart">
+        <i data-lucide="heart" class="icon-heart-pulse"></i>
+      </div>
+      <h1 class="overlay-title">A Romantic Surprise For You</h1>
+      <p class="overlay-subtitle">Turn up your volume and open the gift</p>
+      <button id="btn-open-gift" class="btn-primary btn-glow">
+        <i data-lucide="gift"></i> Open My Gift
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Website Layout -->
+  <main class="app-container">
+    <header class="app-header">
+      <div class="logo">
+        <i data-lucide="heart-handshake" class="logo-icon"></i>
+        <span>LoveLoop</span>
+      </div>
+      <div class="header-tag">Interactive Video Web Gift</div>
+    </header>
+
+    <div class="grid-layout">
+      <!-- LEFT PANEL: The Phone Preview -->
+      <section class="preview-section">
+        <div class="section-title">
+          <span>Live Preview</span>
+          <div class="status-indicator">
+            <span class="pulse-dot"></span> Active
+          </div>
+        </div>
+        
+        <div class="phone-mockup-wrapper">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            
+            <!-- The Card itself -->
+            <div id="birthday-card" class="birthday-card theme-dark">
+              <!-- Canvas for floating hearts inside the card -->
+              <canvas id="card-hearts-canvas"></canvas>
+
+              <!-- Music Control Widget inside the card -->
+              <button id="btn-card-music-toggle" class="card-music-btn" title="Toggle Music">
+                <i data-lucide="music"></i>
+                <div class="music-waves">
+                  <span></span><span></span><span></span>
+                </div>
+              </button>
+
+              <!-- LEFT SIDE: Filmstrip -->
+              <div class="filmstrip-container">
+                <div id="filmstrip-track" class="filmstrip-track">
+                  <!-- JS will dynamically populate filmframes here -->
+                </div>
+                <!-- Vignette Overlay for cinematic look -->
+                <div class="film-vignette"></div>
+              </div>
+
+              <!-- RIGHT SIDE: Text & Cutout -->
+              <div class="card-right-side">
+                <!-- Hearts Graphic -->
+                <div class="hearts-header">
+                  <img id="card-hearts-img" src="assets/hearts.jpg" alt="Hearts" class="hearts-img">
+                </div>
+
+                <!-- Text Headings -->
+                <div class="card-headings">
+                  <div id="card-text-happy" class="text-happy">Happy</div>
+                  <div id="card-text-birthday" class="text-birthday">Birthday</div>
+                  <div id="card-text-mylove" class="text-mylove">My Love</div>
+                </div>
+
+                <!-- Main Message -->
+                <div id="card-message" class="card-message">
+                  Every moment with you feels like a beautiful story I never want to end. Thank you for loving me the way you do
+                </div>
+
+                <!-- Couple Cutout Container -->
+                <div id="couple-cutout-container" class="couple-cutout-container frame-original">
+                  <img id="card-couple-img" src="assets/couple_cutout.jpg" alt="Couple Cutout" class="couple-img">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT PANEL: The Customizer Panel -->
+      <section class="control-section">
+        <div class="dashboard-card">
+          <div class="dashboard-tabs">
+            <button class="tab-btn active" data-tab="texts">
+              <i data-lucide="pencil-line"></i>
+              <span>Texts</span>
+            </button>
+            <button class="tab-btn" data-tab="photos">
+              <i data-lucide="image"></i>
+              <span>Photos</span>
+            </button>
+            <button class="tab-btn" data-tab="effects">
+              <i data-lucide="sparkles"></i>
+              <span>Effects</span>
+            </button>
+            <button class="tab-btn" data-tab="share">
+              <i data-lucide="share-2"></i>
+              <span>Share Gift</span>
+            </button>
+          </div>
+
+          <div class="tab-content-container">
+            <!-- TAB: TEXTS -->
+            <div class="tab-content active" id="tab-texts">
+              <h3 class="tab-title">Personalize the Words</h3>
+              
+              <div class="input-group">
+                <label for="input-happy">Top Line</label>
+                <input type="text" id="input-happy" value="Happy" placeholder="Happy">
+              </div>
+
+              <div class="input-group">
+                <label for="input-birthday">Middle Title</label>
+                <input type="text" id="input-birthday" value="Birthday" placeholder="Birthday">
+              </div>
+
+              <div class="input-group">
+                <label for="input-mylove">Bottom Line</label>
+                <input type="text" id="input-mylove" value="My Love" placeholder="My Love">
+              </div>
+
+              <div class="input-group">
+                <label for="input-message">Romantic Message</label>
+                <textarea id="input-message" rows="4" placeholder="Type your message here...">Every moment with you feels like a beautiful story I never want to end. Thank you for loving me the way you do</textarea>
+              </div>
+
+              <div class="settings-row font-selectors">
+                <div class="input-group">
+                  <label for="select-title-font">Title Font</label>
+                  <select id="select-title-font">
+                    <option value="'Dancing Script', cursive">Dancing Script</option>
+                    <option value="'Great Vibes', cursive">Great Vibes</option>
+                    <option value="'Playfair Display', serif" selected>Playfair Display</option>
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label for="select-msg-font">Message Font</label>
+                  <select id="select-msg-font">
+                    <option value="'Caveat', cursive" selected>Caveat (Handwritten)</option>
+                    <option value="'Dancing Script', cursive">Dancing Script</option>
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB: PHOTOS -->
+            <div class="tab-content" id="tab-photos">
+              <h3 class="tab-title">Customize the Photos</h3>
+              
+              <div class="photo-section">
+                <h4>1. Main Couple Photo (Right Side)</h4>
+                <div class="couple-photo-controls">
+                  <div class="file-upload-wrapper">
+                    <button class="btn-secondary btn-sm file-upload-btn">
+                      <i data-lucide="upload"></i> Upload Image
+                      <input type="file" id="upload-couple-img" accept="image/*">
+                    </button>
+                    <span class="file-name-label" id="couple-file-name">Original cutout active</span>
+                  </div>
+
+                  <div class="input-group mt-2">
+                    <label for="select-couple-frame">Photo Frame Style</label>
+                    <select id="select-couple-frame">
+                      <option value="frame-original" selected>Original Cutout (With outline)</option>
+                      <option value="frame-glow">Transparent Glow (Soft shadow)</option>
+                      <option value="frame-heart">Heart Shape (Dashed border)</option>
+                      <option value="frame-circle">Circular Frame (Dashed border)</option>
+                      <option value="frame-polaroid">Polaroid Style</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="photo-section mt-4">
+                <h4>2. Filmstrip Photos (Left Side)</h4>
+                <p class="section-desc">Upload up to 12 images to rotate in the film strip. Images will loop infinitely.</p>
+                
+                <div class="filmstrip-grid-editor" id="filmstrip-edit-grid">
+                  <!-- Grid of 12 placeholders, generated by JS -->
+                </div>
+
+                <div class="bulk-upload-actions mt-3">
+                  <button class="btn-secondary btn-sm" id="btn-reset-photos">
+                    <i data-lucide="rotate-ccw"></i> Reset to Default Photos
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB: EFFECTS -->
+            <div class="tab-content" id="tab-effects">
+              <h3 class="tab-title">Interactive Effects & Music</h3>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="range-hearts-count">Floating Hearts Density</label>
+                  <span id="label-hearts-count">15</span>
+                </div>
+                <input type="range" id="range-hearts-count" min="0" max="50" value="15">
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="range-hearts-speed">Floating Speed</label>
+                  <span id="label-hearts-speed">Medium</span>
+                </div>
+                <input type="range" id="range-hearts-speed" min="1" max="5" value="3">
+              </div>
+
+              <div class="control-group">
+                <label for="color-hearts">Heart Colors</label>
+                <div class="color-palette-picker">
+                  <button class="color-dot active" data-color="#ff4b5c" style="background-color: #ff4b5c;"></button>
+                  <button class="color-dot" data-color="#ff758c" style="background-color: #ff758c;"></button>
+                  <button class="color-dot" data-color="#e5a93b" style="background-color: #e5a93b;"></button>
+                  <button class="color-dot" data-color="#d4a5ff" style="background-color: #d4a5ff;"></button>
+                  <button class="color-dot" data-color="multi" style="background: linear-gradient(45deg, #ff4b5c, #e5a93b, #d4a5ff);"></button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label for="select-theme">Card Background Theme</label>
+                <select id="select-theme">
+                  <option value="theme-dark">Midnight Black (Original)</option>
+                  <option value="theme-sunset">Romantic Sunset (Warm Gradients)</option>
+                  <option value="theme-starry">Starry Night Sky (Deep Blue & Stars)</option>
+                  <option value="theme-rose">Rose Quartz (Soft Romantic Pink)</option>
+                  <option value="theme-neon">Neon Heartbeat (Dark Pink & Glow)</option>
+                </select>
+              </div>
+
+              <div class="control-group mt-3">
+                <div class="toggle-control">
+                  <label class="switch">
+                    <input type="checkbox" id="toggle-click-hearts" checked>
+                    <span class="slider round"></span>
+                  </label>
+                  <span>Spawn hearts on card click</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB: SHARE -->
+            <div class="tab-content" id="tab-share">
+              <h3 class="tab-title">Share the Love</h3>
+              <p class="section-desc">Create a personalized link that you can send to your partner. When they open it, they will see your custom text, themes, and effects instantly!</p>
+
+              <div class="share-card">
+                <div class="share-instructions">
+                  <i data-lucide="info" class="info-icon"></i>
+                  <span>Note: Images uploaded from your device are stored locally on this browser. For your partner to see custom photos, you can paste public image URLs in the Photo Tab, or they will see the beautiful default romantic photos.</span>
+                </div>
+
+                <div class="share-url-container">
+                  <input type="text" id="share-url-input" readonly value="Generating link...">
+                  <button class="btn-primary" id="btn-copy-link">
+                    <i data-lucide="copy"></i> Copy Link
+                  </button>
+                </div>
+                
+                <div class="share-actions mt-3">
+                  <button class="btn-secondary" id="btn-download-html">
+                    <i data-lucide="download-cloud"></i> Download Standalone Web Page (.html)
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="app-footer-bar">
+      <p>Made with Love. Customize this template, copy the share link or download the file, and send it to your partner!</p>
+    </footer>
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast-hidden">
+    <i data-lucide="check-circle" class="toast-icon"></i>
+    <span id="toast-message">Copied successfully!</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
