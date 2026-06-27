@@ -111,8 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
      INITIALIZATION & RENDER
      ========================================================================== */
   function init() {
-    // Set initial volume from localStorage or default to 20%
-    const savedVolume = localStorage.getItem("love_music_volume") || "20";
+    // Set initial volume from localStorage or default to 10%
+    const savedVolume = localStorage.getItem("love_music_volume") || "10";
     rangeMusicVolume.value = savedVolume;
     labelMusicVolume.textContent = savedVolume + "%";
     bgMusic.volume = parseInt(savedVolume) / 100;
