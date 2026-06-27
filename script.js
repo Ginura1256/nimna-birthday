@@ -693,7 +693,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Auto-fallback from localhost to live GitHub Pages link for convenience on mobile
       let baseUrl = window.location.origin + window.location.pathname;
       if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-        baseUrl = "https://ginura1256.github.io/nimna-birthday/";
+        baseUrl = "https://ginura1256.github.io/I-love-you-/";
       }
       
       const shareUrl = `${baseUrl}?gift=${base64}`;
