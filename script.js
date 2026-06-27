@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Default asset paths
   const defaultAssets = {
-    coupleImg: "assets/couple_cutout.jpg",
+    coupleImg: "assets/couple cutout.jpeg",
     filmstrip: [
       "assets/WhatsApp Image 2026-05-07 at 12.09.28 PM.jpeg",
       "assets/WhatsApp Image 2026-05-07 at 12.12.14 PM.jpeg",
